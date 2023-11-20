@@ -6,20 +6,28 @@ import 'package:gorintest/common/constants/app_text_styles.dart';
 import 'package:gorintest/core/features/auth/ui/local_components/app_primary_button.dart';
 import 'package:gorintest/core/features/auth/ui/local_components/app_text_button.dart';
 import 'package:gorintest/core/features/auth/ui/local_components/app_text_field.dart';
-import 'package:gorintest/core/features/auth/ui/signup_screen.dart';
+import 'package:gorintest/core/features/auth/ui/local_components/profile_placeholder.dart';
+import 'package:gorintest/core/features/auth/ui/login_screen.dart';
+import 'package:gorintest/core/features/home/ui/home_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final AppTextStyles textStyles = AppTextStyles();
 
-  final controller = TextEditingController();
-  final focusNode = FocusNode();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final nameNode = FocusNode();
+  final emailNode = FocusNode();
+  final passwordNode = FocusNode();
+
   bool obscureText = true;
 
   @override
@@ -36,41 +44,43 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 48.h,
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    visualDensity: VisualDensity.compact,
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.close,
-                      color: AppColors.iconColor,
+                Center(
+                  child: Text(
+                    'Sign up with email',
+                    style: textStyles.kRegularTextStyle.copyWith(
+                      fontSize: 16.sp,
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 72.h,
+                  height: 16.h,
                 ),
-                Center(
-                  child: Text(
-                    'Login with email',
-                    style:
-                        textStyles.kRegularTextStyle.copyWith(fontSize: 16.sp),
-                  ),
+                const Center(
+                  child: ProfilePlaceholder(),
                 ),
                 SizedBox(
                   height: 12.h,
                 ),
-                const AppTextField(
-                  placeHolderText: 'email',
+                AppTextField(
+                  placeHolderText: 'Name',
+                  controller: nameController,
+                  focusNode: nameNode,
                 ),
                 SizedBox(
                   height: 16.h,
                 ),
                 AppTextField(
-                  placeHolderText: 'password',
-                  controller: controller,
-                  focusNode: focusNode,
+                  placeHolderText: 'Email',
+                  controller: emailController,
+                  focusNode: emailNode,
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                AppTextField(
+                  placeHolderText: 'Password',
+                  controller: passwordController,
+                  focusNode: passwordNode,
                   obscureText: obscureText,
                   suffix: IconButton(
                     onPressed: () {
@@ -90,19 +100,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 16.h,
+                  height: 24.h,
                 ),
-                const Center(
-                  child: AppTextButton(
-                    buttonText: 'Forgot Password ?',
-                  ),
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                const Center(
+                Center(
                   child: AppPrimaryButton(
-                    buttonText: 'Login',
+                    buttonText: 'Sign Up',
+                    onTap: () {
+                      Navigator.of(context).push(
+                        CupertinoPageRoute(
+                          builder: (context) => const HomeScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 SizedBox(
@@ -110,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Center(
                   child: Text(
-                    'Don\'t have an account',
+                    'Already have an account?',
                     style: textStyles.kRegularTextStyle.copyWith(
                       fontSize: 14.sp,
                     ),
@@ -121,11 +130,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Center(
                   child: AppTextButton(
-                    buttonText: 'Sign Up',
+                    buttonText: 'Login',
                     onTap: () {
                       Navigator.of(context).pushReplacement(
                         CupertinoPageRoute(
-                          builder: (context) => const SignupScreen(),
+                          builder: (context) => const LoginScreen(),
                         ),
                       );
                     },
