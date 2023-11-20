@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "283981760852",
+    "project_id": "gorin-test-sami",
+    "storage_bucket": "gorin-test-sami.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283981760852:android:e462f23635ffd1e7b960c1",
+        "android_client_info": {
+          "package_name": "com.sami.gorin_test.gorintest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ5717tULmYkHoCb-fN4VhgC5DQUMueF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
