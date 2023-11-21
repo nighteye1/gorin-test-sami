@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gorintest/core/features/auth/bloc/auth_bloc.dart';
-import 'package:gorintest/core/features/auth/bloc/auth_provider.dart';
 import 'package:gorintest/core/features/auth/ui/login_screen.dart';
+import 'package:gorintest/core/features/auth/ui/splash_screen.dart';
 import 'package:gorintest/firebase_options.dart';
 
 void main() async {
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               useMaterial3: false,
             ),
-            home: const LoginScreen(),
+            home: const SplashScreen(),
           ),
         );
       },

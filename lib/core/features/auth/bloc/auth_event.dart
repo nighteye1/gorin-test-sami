@@ -64,6 +64,9 @@ final class ValidateSignupPassword extends AuthEvent {
 
 final class PickImageEvent extends AuthEvent {}
 
-final class LogoutEvent extends AuthEvent {}
-
-final class UsersStream extends AuthEvent {}
+final class GetAppUser extends AuthEvent {
+  final String uid;
+  GetAppUser({
+    required this.uid,
+  });
+}

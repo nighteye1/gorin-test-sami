@@ -88,3 +88,10 @@ final class ImagePickedState extends AuthState {
     this.imageFile,
   });
 }
+
+final class GetUserSuccess extends AuthState {
+  final AppUser appUser;
+  GetUserSuccess({
+    required this.appUser,
+  });
+}

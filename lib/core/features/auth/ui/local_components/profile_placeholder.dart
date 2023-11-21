@@ -25,9 +25,12 @@ class ProfilePlaceholder extends StatelessWidget {
           color: AppColors.primaryColor,
         ),
         child: imageFile != null
-            ? Image.file(
-                imageFile!,
-                fit: BoxFit.cover,
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.file(
+                  imageFile!,
+                  fit: BoxFit.cover,
+                ),
               )
             : const Center(
                 child: Icon(

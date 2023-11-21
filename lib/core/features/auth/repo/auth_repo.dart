@@ -11,9 +11,9 @@ import 'package:gorintest/core/model/app_user.dart';
 import 'package:gorintest/core/networking/api_response.dart';
 
 class AuthRepository {
-  final _auth = FirebaseAuth.instance;
-  final _firestore = FirebaseFirestore.instance;
-  final _storage = FirebaseStorage.instance;
+  final auth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
+  final storage = FirebaseStorage.instance;
 
   Future<ApiResponse<AppUser?>> signUpFirebase({
     required String email,
@@ -23,22 +23,22 @@ class AuthRepository {
   }) async {
     try {
       if (await HelperFunctions.hasNetwork()) {
-        await _auth.createUserWithEmailAndPassword(
+        await auth.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
-        await _auth.currentUser?.updateDisplayName(name);
+        await auth.currentUser?.updateDisplayName(name);
         AppUser appUser = AppUser(
           email: email,
           name: name,
-          uid: _auth.currentUser!.uid,
+          uid: auth.currentUser!.uid,
         );
 
         if (imageFile != null) {
           String imageUrl = await uploadFile(
             file: imageFile,
             fileName: imageFile.uri.pathSegments.last,
-            uid: _auth.currentUser!.uid,
+            uid: auth.currentUser!.uid,
           );
           appUser.imageUrl = imageUrl;
         }
@@ -76,12 +76,12 @@ class AuthRepository {
       String email, String password) async {
     try {
       if (await HelperFunctions.hasNetwork()) {
-        await _auth.signInWithEmailAndPassword(
+        await auth.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
 
-        AppUser? appUser = await getUser(uid: _auth.currentUser!.uid);
+        AppUser? appUser = await getUser(uid: auth.currentUser!.uid);
 
         return ApiResponse(
           status: Status.success,
@@ -107,7 +107,7 @@ class AuthRepository {
 
   Future<ApiResponse> signOutThroughFirebase() async {
     try {
-      await _auth.signOut();
+      await auth.signOut();
       return ApiResponse(
         status: Status.success,
       );
@@ -120,7 +120,7 @@ class AuthRepository {
 
   Stream<List<AppUser>> getUsers() {
     Stream<QuerySnapshot> stream =
-        _firestore.collection(FirebaseCollections.userCollection).snapshots();
+        firestore.collection(FirebaseCollections.userCollection).snapshots();
     return stream.asyncMap(getAppUsers);
   }
 
@@ -137,7 +137,7 @@ class AuthRepository {
 
   Future<AppUser> saveUser({required AppUser appUser}) async {
     Map<String, dynamic> userObj = appUser.toJson();
-    await _firestore
+    await firestore
         .collection(FirebaseCollections.userCollection)
         .doc(appUser.uid)
         .set(
@@ -148,7 +148,7 @@ class AuthRepository {
   }
 
   Future<AppUser?> getUser({required String uid}) async {
-    DocumentSnapshot<Map<String, dynamic>> document = await _firestore
+    DocumentSnapshot<Map<String, dynamic>> document = await firestore
         .collection(FirebaseCollections.userCollection)
         .doc(uid)
         .get();
@@ -165,7 +165,7 @@ class AuthRepository {
     required String uid,
   }) async {
     String link = '';
-    final storageRef = _storage.ref();
+    final storageRef = storage.ref();
     final uploadTask =
         await storageRef.child('images/users/$uid/$fileName').putFile(file);
 

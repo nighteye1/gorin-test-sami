@@ -151,5 +151,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       }
     });
+
+    on<GetAppUser>((event, emit) async {
+      AppUser? user = await authRepo.getUser(uid: event.uid);
+      if (appUser != null) {
+        appUser = user;
+        emit(GetUserSuccess(appUser: appUser!));
+      }
+    });
   }
 }
