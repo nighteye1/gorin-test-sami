@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gorintest/core/features/auth/bloc/auth_bloc.dart';
+import 'package:gorintest/core/features/auth/bloc/auth_provider.dart';
 import 'package:gorintest/core/features/auth/ui/login_screen.dart';
 import 'package:gorintest/firebase_options.dart';
 
@@ -24,13 +27,18 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       useInheritedMediaQuery: true,
       builder: (context, child) {
-        return MaterialApp(
-          title: 'Gorin Test Sami',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            useMaterial3: false,
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
+          ],
+          child: MaterialApp(
+            title: 'Gorin Test Sami',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              useMaterial3: false,
+            ),
+            home: const LoginScreen(),
           ),
-          home: const LoginScreen(),
         );
       },
     );

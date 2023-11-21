@@ -9,6 +9,7 @@ class AppTextField extends StatelessWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final Widget? suffix;
+  final void Function(String)? onChange;
   const AppTextField({
     super.key,
     this.placeHolderText = '',
@@ -16,6 +17,7 @@ class AppTextField extends StatelessWidget {
     this.controller,
     this.focusNode,
     this.suffix,
+    this.onChange,
   });
 
   @override
@@ -42,6 +44,7 @@ class AppTextField extends StatelessWidget {
         placeholderStyle: styles.kRegularTextStyle,
         style: styles.kRegularTextStyle,
         obscureText: obscureText,
+        onChanged: onChange,
         padding: const EdgeInsets.symmetric(horizontal: 16).w,
         suffix: suffix,
         suffixMode: OverlayVisibilityMode.always,

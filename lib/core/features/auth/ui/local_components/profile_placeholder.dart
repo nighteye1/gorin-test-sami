@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gorintest/common/constants/app_colors.dart';
 
 class ProfilePlaceholder extends StatelessWidget {
+  final File? imageFile;
   final void Function()? onTap;
   const ProfilePlaceholder({
     super.key,
     this.onTap,
+    this.imageFile,
   });
 
   @override
@@ -20,12 +24,17 @@ class ProfilePlaceholder extends StatelessWidget {
           shape: BoxShape.circle,
           color: AppColors.primaryColor,
         ),
-        child: const Center(
-          child: Icon(
-            Icons.person,
-            color: AppColors.whiteColor,
-          ),
-        ),
+        child: imageFile != null
+            ? Image.file(
+                imageFile!,
+                fit: BoxFit.cover,
+              )
+            : const Center(
+                child: Icon(
+                  Icons.person,
+                  color: AppColors.whiteColor,
+                ),
+              ),
       ),
     );
   }
